@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts-config PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+        "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+    <form-beans>
+        <form-bean name="helloForm" type="form.HelloForm">
+            <form-property name="info" type="java.lang.String"/>
+        </form-bean>
+        <form-bean name="signInForm" type="form.SignInForm"/>
+        <form-bean name="signUpForm" type="form.SignUpForm"/>
+    </form-beans>
+    <action-mappings>
+        <action attribute="helloForm" input="/index.jsp" scope="request" path="/hello" name="helloForm"
+                type="action.HelloAction">
+            <forward name="show" path="/index.jsp"/>
+        </action>
+        <action path="/signIn" attribute="signInForm" input="/signup.jsp" scope="request" name="signInForm"
+                type="action.SignInAction">
+            <forward name="main" path="/main.jsp"/>
+            <forward name="signin" path="/signin.jsp"/>
+        </action>
+        <action path="/signUp" attribute="signUpForm" input="/signin.jsp" scope="request" name="signUpForm"
+                type="action.SignUpAction">            <forward name="main" path="/main.jsp"/>
+            <forward name="signin" path="/signin.jsp"/>
+            <forward name="signup" path="/signup.jsp"/>
+        </action>
+    </action-mappings>
+    <message-resources parameter="ApplicationResource"/>
+</struts-config>
