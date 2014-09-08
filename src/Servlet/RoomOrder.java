@@ -63,7 +63,6 @@ public class RoomOrder extends HttpServlet {
 
 
         if (account != null && room_no != null && start != null && end != null) {   //房间预订
-            System.out.print(1); //flag
             String order_date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             OrderList order = new OrderList(room_no, account, start, end, order_date);
             try {

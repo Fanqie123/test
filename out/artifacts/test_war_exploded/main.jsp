@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
+<%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +9,10 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/dashboard.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -16,7 +22,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:void(0)">注销</a></li>
+                <li><a href="logout">注销</a></li>
             </ul>
         </div>
     </div>
@@ -24,13 +30,13 @@
 <div class="container-fluid">
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar" id="sidebar">
-            <li class="active" value="0"><a href="javascript:void(0)">房间查询</a></li>
-            <li value="1" id="list_order"><a href="javascript:void(0)">预定房间</a></li>
+            <li value="0"><a href="javascript:void(0)">房间查询</a></li>
+            <li class="active" value="1" id="list_order"><a href="javascript:void(0)">预定房间</a></li>
             <li value="2"><a href="javascript:void(0)">我的订单</a></li>
             <li value="3"><a href="javascript:void(0)">个人信息</a></li>
         </ul>
     </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="container0">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="container0" style="display: none">
         <h2 class="sub-header">房间信息</h2>
 
         <div class="container-fluid">
@@ -76,16 +82,27 @@
         </div>
     </div>
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="container1" style="display: none">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="container1">
         <h2 class="sub-header">预定房间</h2>
 
-        <div class="form-horizontal" role="form" style="margin: 60px auto;width: 500px;">
+        <form name="roomOrderForm" class="form-horizontal" role="form" method="post" action="roomOrder.do"
+              style="margin: 60px auto;width: 500px;">
+            <logic:messagesPresent>
+                <label class="error form-control"><html:errors/></label>
+            </logic:messagesPresent>
+            <logic:present name="info" scope="request">
+                <script>
+                    $(function(){
+                        show('${requestScope.info}')
+                    })
+                </script>
+            </logic:present>
             <div class="form-group">
                 <label for="room_no_order" class="col-sm-2 control-label">房间号码</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="room_no_order"
-                           placeholder="请输入房间号码" required>
+                    <input type="text" class="form-control" id="room_no_order" name="room_no"
+                           placeholder="请输入房间号码">
                 </div>
             </div>
             <div class="form-group" style="display: none" id="alert_order">
@@ -98,7 +115,8 @@
 
                 <div class="col-sm-10">
                     <div class="input-group date form_date">
-                        <input class="form-control" size="16" type="text" id="start_date_order" readonly>
+                        <input class="form-control" size="16" type="text" id="start_date_order" name="start_date"
+                               readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     </div>
                 </div>
@@ -109,14 +127,13 @@
 
                 <div class="col-sm-10">
                     <div class="input-group date form_date">
-                        <input class="form-control" size="16" type="text" id="end_date_order" readonly>
+                        <input class="form-control" size="16" type="text" id="end_date_order" name="end_date" readonly>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     </div>
                 </div>
             </div>
-
-            <button class="btn btn-primary col-lg-3" style="float: right" id="room_order">确认</button>
-        </div>
+            <input type="submit" class="btn btn-primary col-lg-3" style="float: right" value="预定">
+        </form>
     </div>
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="container2" style="display: none">
@@ -183,8 +200,10 @@
                 <label for="sex1_i" class="col-sm-2 control-label">性别</label>
 
                 <div class="col-sm-10" style="margin-top: 1px">
-                    <label for="sex1_i" class="control-label">男</label><input type="radio" name="sex" value="男" id="sex1_i" disabled>
-                    <label for="sex2_i" class="control-label">女</label><input type="radio" name="sex" value="女" id="sex2_i" disabled>
+                    <label for="sex1_i" class="control-label">男</label><input type="radio" name="sex" value="男"
+                                                                              id="sex1_i" disabled>
+                    <label for="sex2_i" class="control-label">女</label><input type="radio" name="sex" value="女"
+                                                                              id="sex2_i" disabled>
                 </div>
             </div>
 
@@ -213,11 +232,6 @@
         </div>
     </div>
 </div>
-
-<script src="js/jquery-2.1.1.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

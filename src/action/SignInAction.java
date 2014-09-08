@@ -43,8 +43,8 @@ public class SignInAction extends Action {
                     Cookie cookie2 = new Cookie("password", md5Password);
                     cookie1.setMaxAge(600);
                     cookie2.setMaxAge(600);
-                    cookie1.setHttpOnly(true);
-                    cookie2.setHttpOnly(true);
+                    cookie1.setPath("/test");
+                    cookie2.setPath("/test");
                     response.addCookie(cookie1);
                     response.addCookie(cookie2);
                 }

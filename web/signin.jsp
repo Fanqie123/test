@@ -10,10 +10,10 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico">
-    <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/signin.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/jquery.validate.min.js"></script>
+    <script src="./js/signin.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -37,9 +37,7 @@
             <label class="error">${requestScope.info}</label>
         </logic:present>
         <input name="account" type="text" class="form-control" placeholder="账号" autofocus>
-        <p><html:errors property="account_error"/></p>
         <input name="password" type="password" class="form-control" placeholder="密码">
-        <p><html:errors property="password_error"/></p>
         <label class="control-label">
             <input name="rememberMe" type="checkbox" value="true">
             记住我

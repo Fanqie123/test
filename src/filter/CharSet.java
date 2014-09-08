@@ -2,7 +2,6 @@ package filter;
 
 import javax.servlet.*;
 import java.io.IOException;
-
 /**编码设置filter
  * Created by test on 2014/8/31.
  */
