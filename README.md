@@ -1,8 +1,2 @@
-<<<<<<< HEAD
-#Ð´µãÉ¶
-=======
-test
-====
-
-hehehe 
->>>>>>> origin/master
+This is a web project demo
+===========================
